@@ -31,8 +31,8 @@ void jumpToApplicationAt0x8080() {
 /*
  * These are the minimum peripherals that needed to be disabled to allow the
  * uTasker USB-MSD application to work.  You may need to reset more peripherals
- * depending on the application you are runing, and what other periperals your
- * sketch uses if you do more than just blink an LED
+ * depending on the application you are running, and what other peripherals
+ * your sketch uses if you add more to this example than just blinking an LED
 */
 void resetPeripherals() {
   /* set (some of) ADC1 back to normal */
