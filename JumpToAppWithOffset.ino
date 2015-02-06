@@ -35,7 +35,7 @@ void jumpToApplicationAt0x8080() {
  * your sketch uses if you add more to this example than just blinking an LED
 */
 void resetPeripherals() {
-  /* set (some of) ADC1 back to normal */
+  /* set (some of) USB back to normal */
   NVIC_DISABLE_IRQ(IRQ_USBOTG);
   NVIC_CLEAR_PENDING(IRQ_USBOTG);
   SIM_SCGC4 &= ~(SIM_SCGC4_USBOTG);
