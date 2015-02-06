@@ -18,10 +18,19 @@ int led = 13;
 #ifdef __cplusplus
 extern "C" {
 #endif
-void start_application(unsigned long app_link_location)
-{
-    asm(" ldr sp, [r0,#0]");                                             // load the stack pointer value from the program's reset vector
-    asm(" ldr pc, [r0,#4]");                                             // load the program counter value from the program's reset vector to cause operation to continue from there
+void jumpToApplicationAt0x38080() {
+  /* Load stack pointer and program counter from start of new program */
+  asm("movw r0, #0x8080");
+  asm("movt r0, #0x0003");
+  asm("ldr sp, [r0]");
+  asm("ldr pc, [r0, #4]");
+}
+
+void jumpToApplicationAt0x8080() {
+  /* Load stack pointer and program counter from start of new program */
+  asm("movw r0, #0x8080");
+  asm("ldr sp, [r0]");
+  asm("ldr pc, [r0, #4]");
 }
 #ifdef __cplusplus
 }
@@ -85,5 +94,6 @@ void loop() {
   __disable_irq();
   resetPeripherals();
 
-  start_application(0x8080);
+  //jumpToApplicationAt0x8080();
+  jumpToApplicationAt0x38080();
 }
