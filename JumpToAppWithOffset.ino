@@ -79,6 +79,10 @@ void resetPeripherals() {
 
 // the setup routine runs once when you press reset:
 void setup() {
+  Serial.begin(115200);
+  //while(!Serial);
+  Serial.println("Startup");
+
   // initialize the digital pin as an output.
   pinMode(led, OUTPUT);
 
