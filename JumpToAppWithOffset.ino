@@ -13,6 +13,11 @@
 #include <SmartMatrix_32x32.h>
 
 SmartMatrix matrix;
+
+#include <SPI.h>
+#include <SD.h>
+#define SD_CS 15
+
 // Pin 13 has the LED on Teensy 3.1
 // give it a name:
 int led = 13;
@@ -85,6 +90,13 @@ void setup() {
 
   // initialize the digital pin as an output.
   pinMode(led, OUTPUT);
+
+  pinMode(SD_CS, OUTPUT);
+  if (!SD.begin(SD_CS)) {
+      matrix.scrollText("No SD card", -1);
+      Serial.println("No SD card");
+      while(1);
+  }
 
   matrix.begin();
 }
