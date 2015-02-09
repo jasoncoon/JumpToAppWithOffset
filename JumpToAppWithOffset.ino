@@ -10,6 +10,9 @@
   This example code is in the public domain.
  */
 
+#include <SmartMatrix_32x32.h>
+
+SmartMatrix matrix;
 // Pin 13 has the LED on Teensy 3.1
 // give it a name:
 int led = 13;
@@ -78,6 +81,8 @@ void resetPeripherals() {
 void setup() {
   // initialize the digital pin as an output.
   pinMode(led, OUTPUT);
+
+  matrix.begin();
 }
 
 // the loop routine runs over and over again forever:
