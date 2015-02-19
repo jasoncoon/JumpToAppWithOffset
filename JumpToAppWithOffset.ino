@@ -40,10 +40,6 @@ void jumpToApplicationAt0x8080() {
   asm("ldr sp, [r0]");
   asm("ldr pc, [r0, #4]");
 }
-#ifdef __cplusplus
-}
-#endif
-
 
 /*
  * These are the minimum peripherals that needed to be disabled to allow the
@@ -82,6 +78,27 @@ void resetPeripherals() {
   SIM_CLKDIV2 = 0;
 }
 
+void startup_late_hook(void) {
+  // look for the condition that indicates we want to jump to the application with offset
+  if(eeprom_read_byte(0) == 0xff) {
+
+    // clear the condition
+    eeprom_write_byte(0, 0);
+
+    // set peripherals (mostly) back to normal then jump
+    __disable_irq();
+    resetPeripherals();
+    jumpToApplicationAt0x38080();
+  }
+}
+#ifdef __cplusplus
+}
+#endif
+
+#define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
+#define CPU_RESTART_VAL 0x5FA0004
+#define CPU_RESTART() (*CPU_RESTART_ADDR = CPU_RESTART_VAL);
+
 // the setup routine runs once when you press reset:
 void setup() {
   Serial.begin(115200);
@@ -112,9 +129,7 @@ void loop() {
   digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
   pinMode(led, INPUT);
 
-  __disable_irq();
-  resetPeripherals();
+  eeprom_write_byte(0, 0xFF);
 
-  //jumpToApplicationAt0x8080();
-  jumpToApplicationAt0x38080();
+  CPU_RESTART();
 }
