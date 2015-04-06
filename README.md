@@ -17,7 +17,7 @@ This technique can also be used to compile an Arduino application that is launch
         * teensy31.menu.linker.0x8080=0x8080 Offset
         * teensy31.menu.linker.0x8080.build.linkerscript=mk20dx256-8080.ld
     * Modify this line:
-        * find line "teensy31.build.flags.ld"
+        * find line starting with "teensy31.build.flags.ld"
         * replace "mk20dx256.ld" with "{build.linkerscript}"
         * Full line should be: teensy31.build.flags.ld=-Os -Wl,--gc-sections,--relax,--defsym=__rtc_localtime={extra.time.local} --specs=nano.specs "-T{build.core.path}/{build.linkerscript}"
 * Add new linker script mk20dx256-8080.ld into hardware/teensy/avr/cores/teensy3/
@@ -29,6 +29,7 @@ This technique can also be used to compile an Arduino application that is launch
 * Compile Blink example
 * Copy JumpToAppWithOffset.cpp.hex from temp directory back into Arduino build directory
 * from command line in build directory: srec_cat JumpToAppWithOffset.cpp.hex -Intel Blink.cpp.hex -Intel -Output JumpToBlinkWithOffset.hex -Intel
+    * This command loads the two hex files, which are in non-overlapping sections of memory, and creates a new .hex file containing both applications.
 * Open JumpToBlinkWithOffset.hex in Teensy Loader
 * Press button to load to Teensy
 * Observe two fast blinks from JumpToAppWithOffset, followed by slower blinks from Blink Example running infinitely
