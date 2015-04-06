@@ -1,8 +1,8 @@
-Store two separate Teensy 3.1 applications on the Teensy 3.1
+Combine two separate Teensy 3.1 applications and jump between them
 
 This simple example shows an application with a fast-blinking LED jumping to an application with a slow-blinking LED.
 
-This technique can also be used to compile an Arduino application that is launched by a bootloader (e.g. uTasker).
+This technique can also be used to compile an Arduino application that is launched by a bootloader, e.g. [uTasker](http://www.utasker.com/kinetis.html).
 
 ## Instructions
 
