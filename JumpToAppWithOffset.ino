@@ -17,6 +17,9 @@
   to be disabled to allow a few tested applications to work.  You may need to
   reset more peripherals depending on the application you jump to from here.
 
+  For complete instructions please see README.md included with sketch or here:
+  https://github.com/pixelmatix/JumpToAppWithOffset
+
   This example code is in the public domain.
  */
 
