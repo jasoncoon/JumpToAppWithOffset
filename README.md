@@ -6,6 +6,8 @@ This technique can also be used to compile an Arduino application that is launch
 
 ## Instructions
 
+### Setup
+
 * Install Teensyduino (minimum 1.21) onto Arduino (minimum 1.6.1)
 * Install srec_cat tool: http://srecord.sourceforge.net/
 * Modify boards.txt in the Teensyduino install to give new Linker Script option
@@ -22,6 +24,9 @@ This technique can also be used to compile an Arduino application that is launch
         * Full line should be: teensy31.build.flags.ld=-Os -Wl,--gc-sections,--relax,--defsym=__rtc_localtime={extra.time.local} --specs=nano.specs "-T{build.core.path}/{build.linkerscript}"
 * Add new linker script mk20dx256-8080.ld into hardware/teensy/avr/cores/teensy3/
 * Start/restart Arduino.  Look for new "Linker Script" menu option in Tools menu when using the Teensy 3.1 board type.  Keep this option set to "Default" and your Teensy 3.1 sketches will be linked normally.  Change this option to "0x8080 Offset" and your sketches will be linked to start at offset 0x8080 in Flash (and will not run on the Teensy 3.1 as is).
+
+### Combine two applications
+
 * Load JumpToAppWithOffset sketch and compile with Linker option "Default".
 * Navigate to the directory holding the .hex file that was generated (you can find this directory in the Arduino build console).
 * copy JumpToAppWithOffset.cpp.hex to temporary folder
