@@ -12,13 +12,13 @@ This technique can also be used to compile an Arduino application that is launch
 * Install srec_cat tool: http://srecord.sourceforge.net/
 * Modify boards.txt in the Teensyduino install to give new Linker Script option
     * hardware/teensy/avr/boards.txt
-    * Add these lines:
-        * menu.linker=Linker Script
-        * teensy31.menu.linker.default=Default
-        * teensy31.menu.linker.default.build.linkerscript=mk20dx256.ld
-        * teensy31.menu.linker.0x8080=0x8080 Offset
-        * teensy31.menu.linker.0x8080.build.linkerscript=mk20dx256-8080.ld
-    * Modify this line:
+    * Add these lines:  
+    menu.linker=Linker Script  
+    teensy31.menu.linker.default=Default  
+    teensy31.menu.linker.default.build.linkerscript=mk20dx256.ld  
+    teensy31.menu.linker.0x8080=0x8080 Offset  
+    teensy31.menu.linker.0x8080.build.linkerscript=mk20dx256-8080.ld  
+    * Modify one line:
         * find line starting with "teensy31.build.flags.ld"
         * replace "mk20dx256.ld" with "{build.linkerscript}"
         * Full line should be: teensy31.build.flags.ld=-Os -Wl,--gc-sections,--relax,--defsym=__rtc_localtime={extra.time.local} --specs=nano.specs "-T{build.core.path}/{build.linkerscript}"
