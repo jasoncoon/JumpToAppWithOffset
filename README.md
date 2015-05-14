@@ -13,14 +13,18 @@ This technique can also be used to compile an Arduino application that is launch
 * Modify boards.txt in the Teensyduino install to give new Linker Script option
     * hardware/teensy/avr/boards.txt
     * Add these lines:  
-    menu.linker=Linker Script  
-    teensy31.menu.linker.default=Default  
-    teensy31.menu.linker.default.build.linkerscript=mk20dx256.ld  
-    teensy31.menu.linker.0x8080=0x8080 Offset  
-    teensy31.menu.linker.0x8080.build.linkerscript=mk20dx256-8080.ld  
+
+```    
+menu.linker=Linker Script  
+teensy31.menu.linker.default=Default  
+teensy31.menu.linker.default.build.linkerscript=mk20dx256.ld  
+teensy31.menu.linker.0x8080=0x8080 Offset  
+teensy31.menu.linker.0x8080.build.linkerscript=mk20dx256-8080.ld
+```
+
     * Modify one line:
         * find line starting with "teensy31.build.flags.ld"
-        * replace "mk20dx256.ld" with "{build.linkerscript}"
+        * replace mk20dx256.ld with {build.linkerscript}
         * Full line should be: teensy31.build.flags.ld=-Os -Wl,--gc-sections,--relax,--defsym=__rtc_localtime={extra.time.local} --specs=nano.specs "-T{build.core.path}/{build.linkerscript}"
 * Add new linker script mk20dx256-8080.ld into hardware/teensy/avr/cores/teensy3/
 * Start/restart Arduino.  Look for new "Linker Script" menu option in Tools menu when using the Teensy 3.1 board type.  Keep this option set to "Default" and your Teensy 3.1 sketches will be linked normally.  Change this option to "0x8080 Offset" and your sketches will be linked to start at offset 0x8080 in Flash (and will not run on the Teensy 3.1 as is).
